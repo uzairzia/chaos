@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>JSON Searcher</title>
+	<style>
+    body{
+      background-color: #b3c6c1;
+      color: #d8d6d8;
+      font-size: 20px;
+      font-weight: bolder;
+    }
+    #demo{
+      background-color: #843168;
+      width: 16%;
+      padding: 30px;
+      margin-top: 7%;
+      margin-left: 40%;
+    }
+	</style>
+  <script type="text/javascript">
+    function loadDoc() {
+  var nam = document.getElementById("a").value;
+  var dep = document.getElementById("b").value;
+  var flag = false;
+  var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      var searching=JSON.parse(this.responseText);
+        if(searching[dep]==undefined||dep==null)
+          alert("***No such Department Exists");
+        else
+        {
+          for (var i = 0; i <= searching[dep].length; i++) 
+          {
+            if(searching[dep][i]==nam)
+            {
+              flag=true;
+              break;
+
+            }
+            else
+            {
+              flag=false;
+            }
+
+          }
+          if(flag == true)
+          {
+            alert("Name Exists");
+
+          }
+          else
+          {
+            alert("No such Name Exists");
+          }
+
+        }
+
+    }
+
+  };
+  xhttp.open("GET", "taskA.json", true);
+  xhttp.send();
+}
+  </script> 		
+</head>
+<body>
+<div id="demo">
+<h1>JSON Searcher</h1>
+<label>Enter Name:</label>
+<input type="text" id="a"> <br><br>
+<label>Enter Department: </label>
+<input type="text" id="b"><br/><br/>
+<button type="submit" onclick="loadDoc()">Search</button>
+</div>
+</body>
+</html>
